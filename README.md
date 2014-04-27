@@ -1,6 +1,7 @@
 NetAtmo
 =======
 Test project for NetAtmo API
+Build with Xamarin
 
 
 http://dev.netatmo.com/doc/
