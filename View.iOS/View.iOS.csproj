@@ -115,6 +115,7 @@
     <Reference Include="RestSharp.Portable">
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.6.1\lib\portable-net40+sl50+wp80+win\RestSharp.Portable.dll</HintPath>
     </Reference>
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -127,13 +128,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="View.iOSViewController.cs" />
-    <Compile Include="View.iOSViewController.designer.cs">
-      <DependentUpon>View.iOSViewController.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="MainStoryboard.storyboard" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

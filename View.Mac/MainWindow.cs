@@ -24,6 +24,7 @@ namespace View.Mac
         // Shared initialization code
         void Initialize()
         {
+            View();
         }
 
         #endregion
