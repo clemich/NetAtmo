@@ -3,13 +3,11 @@ NetAtmo
 Test project for NetAtmo API
 
 
-/// <summary>
-/// http://dev.netatmo.com/doc/
-/// http://dev.netatmo.com/dev/createapp
-/// </summary>
+http://dev.netatmo.com/doc/
+http://dev.netatmo.com/dev/createapp
 
 
-The Test works with my NetAtmo Module
+The test works with my NetAtmo module
 
 // my NetAtmo View App Details
 // http://dev.netatmo.com/dev/detailsapp?idapp=535d1d441c77596c746ba11d
