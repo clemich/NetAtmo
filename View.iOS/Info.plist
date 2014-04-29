@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>View.iOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.your-company.View.iOS</string>
+	<string>de.klapperich.View.iOS</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

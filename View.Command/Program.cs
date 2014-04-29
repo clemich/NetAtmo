@@ -1,4 +1,5 @@
 ﻿using System;
+using NetAtmo;
 
 namespace View.Command
 {

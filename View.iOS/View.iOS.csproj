@@ -46,6 +46,11 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <IpaPackageName>
+    </IpaPackageName>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -88,34 +93,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="System.IO">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\portable-net40+win8\System.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\portable-net40+win8\System.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\portable-net40+win8\System.Threading.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wpa81\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\portable-net45+win8\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\portable-net45+win8\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
+    <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.6.1\lib\portable-net40+sl50+wp80+win\RestSharp.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -138,6 +119,10 @@
     <ProjectReference Include="..\View\View.csproj">
       <Project>{BFD29D66-3B81-4BF5-8D80-F43259EC2AA1}</Project>
       <Name>View</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestSharp.Portable\RestSharp.Portable.csproj">
+      <Project>{BFB31BCF-2BF2-4197-B4F6-0AB31919A7B5}</Project>
+      <Name>RestSharp.Portable</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
