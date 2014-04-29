@@ -8,8 +8,6 @@ namespace View.Mac
 {
     public partial class MainWindow : MonoMac.AppKit.NSWindow
     {
-        #region Constructors
-
         // Called when created from unmanaged code
         public MainWindow(IntPtr handle) : base(handle)
         {
@@ -27,10 +25,14 @@ namespace View.Mac
             View();
         }
 
-        #endregion
+        partial void buttonView_Clicked(NSObject sender)
+        {
+            View();
+        }
 
         async public void View()
         {
+            Clear();
             NetAtmo.Gadget gadget = new NetAtmo.Gadget(Config.Id, Config.Secret, Config.UserName, Config.Password);
             if (await gadget.ClientCredentials.ExecuteAsync())
             {
@@ -54,23 +56,16 @@ namespace View.Mac
                 WriteLine("Error gadget.ClientCredentials {0}", gadget.ClientCredentials.Executed.Result.StatusDescription);
         }
 
-        partial void buttonView_Clicked(NSObject sender)
-        {
-            View();
-        }
-
         protected void Clear()
         {
-            textFieldView.StringValue= "";
+            if (textFieldView != null)
+                textFieldView.StringValue = "";
         }
 
         public void WriteLine(string format, params object[] args)
         {
-            textFieldView.StringValue+= string.Format(format, args)+ "\r\n";
+            textFieldView.StringValue += string.Format(format, args) + "\r\n";
         }
-
-
-
     }
 }
 
