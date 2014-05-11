@@ -55,10 +55,10 @@ namespace View.iOS
                         textSection.Add(new  StringElement("Station", device.StationName));
 
                     foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
-                        textSection.Add(new StringElement(device.ModuleName, device.last_data_store.Temperature.ToString()));
+                        textSection.Add(new StringElement(device.ModuleName, device.LastDataStore.Temperature.ToString()));
 
                     foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
-                        textSection.Add(new StringElement(module.ModuleName, module.last_data_store.Temperature.ToString()));
+                        textSection.Add(new StringElement(module.ModuleName, module.LastDataStore.Temperature.ToString()));
                 }
                 else if (gadget.DeviceList.Executed.IsException)
                     textSection.Add(new StringElement("Exception gadget.DeviceList {0}", gadget.DeviceList.Executed.Exception.ToString()));

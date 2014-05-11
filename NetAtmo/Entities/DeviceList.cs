@@ -60,7 +60,7 @@ namespace NetAtmo.Entities
             public bool meteo_alarm { get; set; }
         }
 
-        public class LastDataStore
+        public class LastDataStoreHelper
         {
             [JsonProperty("'")]
             public double __invalid_name__X { get; set; }
@@ -145,21 +145,10 @@ namespace NetAtmo.Entities
 
             public string streaming_key { get; set; }
 
-            public LastDataStore last_data_store { get; set; }
+            [JsonProperty("last_data_store")]
+            public LastDataStoreHelper LastDataStore { get; set; }
 
             public List<string> data_type { get; set; }
-        }
-
-        public class LastDataStore2
-        {
-            public int K { get; set; }
-
-            [JsonProperty("a")]
-            public double Temperature { get; set; }
-
-            public int b { get; set; }
-
-            public int? h { get; set; }
         }
 
         public class Module
@@ -188,7 +177,8 @@ namespace NetAtmo.Entities
 
             public int battery_vp { get; set; }
 
-            public LastDataStore2 last_data_store { get; set; }
+            [JsonProperty("last_data_store")]
+            public LastDataStoreHelper LastDataStore { get; set; }
 
             public List<string> data_type { get; set; }
 

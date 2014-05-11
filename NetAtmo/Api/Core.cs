@@ -28,13 +28,14 @@ namespace NetAtmo.Api
             Executed.Exception = null;
             try
             {
-                JsonSerializerSettings jss= new JsonSerializerSettings();
-                jss.Formatting= Formatting.Indented;
-
                 string response = await rest.ExecuteAsync<string>(request);
                 Debug.WriteLine(response);
                 var x= JsonConvert.DeserializeObject<T>(response);
-                var xs= JsonConvert.SerializeObject(x, jss);
+
+//                JsonSerializerSettings jss= new JsonSerializerSettings();
+//                jss.Formatting= Formatting.Indented;
+//                var xs= JsonConvert.SerializeObject(x, jss);
+
                 Executed.Result= x;
                 return Executed.IsResultAndStatusCodeOk;
             }

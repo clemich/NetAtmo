@@ -16,10 +16,10 @@ namespace View.Command
                         Console.WriteLine("Station={0}", device.StationName);
 
                     foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
-                        Console.WriteLine("Name={0} Temp={1}", device.ModuleName, device.last_data_store.Temperature.ToString());
+                        Console.WriteLine("Name={0} Temp={1}", device.ModuleName, device.LastDataStore.Temperature.ToString());
 
                     foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
-                        Console.WriteLine("Name={0} Temp={1}", module.ModuleName, module.last_data_store.Temperature.ToString());
+                        Console.WriteLine("Name={0} Temp={1}", module.ModuleName, module.LastDataStore.Temperature.ToString());
                 }
                 else if (gadget.DeviceList.Executed.IsException)
                     Console.WriteLine("Exception gadget.DeviceList {0}", gadget.DeviceList.Executed.Exception.ToString());
