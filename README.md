@@ -3,8 +3,6 @@ NetAtmo
 Test project for NetAtmo API
 Build with Xamarin
 
-modified PCL RestSharp.Portable from https://bitbucket.org/fubar-coder/restsharp.portable
-
 
 http://dev.netatmo.com/doc/
 http://dev.netatmo.com/dev/createapp
