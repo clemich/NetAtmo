@@ -4,19 +4,19 @@ using View;
 
 public partial class MainWindow: Gtk.Window
 {
-    Button buttonView; 
+    Button buttonView;
     TextView textviewView;
 
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
         Build();
 
-        Table table = new Table (2, 2, true);
+        Table table = new Table(2, 2, true);
 
         Add(table); 
-        ShowAll ();
+        ShowAll();
 
-        buttonView = new Button ("View");
+        buttonView = new Button("View");
         // when this button is clicked, it'll run hello()
         buttonView.Clicked += (s, a) =>
         {
@@ -26,8 +26,8 @@ public partial class MainWindow: Gtk.Window
 
         textviewView = new TextView();
 
-        table.Attach (buttonView, 0, 2, 0, 1);
-        table.Attach (textviewView, 0, 2, 1, 2);
+        table.Attach(buttonView, 0, 2, 0, 1);
+        table.Attach(textviewView, 0, 2, 1, 2);
         table.ShowAll();
 
         View();
@@ -47,22 +47,24 @@ public partial class MainWindow: Gtk.Window
         {
             if (await gadget.DeviceList.ExecuteAsync())
             {
-                foreach (var station in gadget.Stations)
-                    WriteLine("Station={0}", station.Value);
+                foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                    WriteLine("Station={0}", device.StationName);
 
-                foreach (var device in gadget.DeviceList.Executed.Result.Data.Body.Devices)
-                    foreach (var datastore in device.last_data_store)
-                        WriteLine("Name={0} Temp={1}", gadget.Modules[datastore.Key], datastore.Value.Temperature);
+                foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                    WriteLine("Name={0} Temp={1}", device.ModuleName, device.last_data_store.Temperature.ToString());
+
+                foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
+                    WriteLine("Name={0} Temp={1}", module.ModuleName, module.last_data_store.Temperature.ToString());
             }
             else if (gadget.DeviceList.Executed.IsException)
                 WriteLine("Exception gadget.DeviceList {0}", gadget.DeviceList.Executed.Exception.ToString());
             else
-                WriteLine("Error gadget.DeviceList {0}", gadget.DeviceList.Executed.Result.StatusDescription);
+                WriteLine("Error gadget.DeviceList");
         }
         else if (gadget.ClientCredentials.Executed.IsException)
             WriteLine("Exception gadget.ClientCredentials {0}", gadget.ClientCredentials.Executed.Exception.ToString());
         else
-            WriteLine("Error gadget.ClientCredentials {0}", gadget.ClientCredentials.Executed.Result.StatusDescription);
+            WriteLine("Error gadget.ClientCredentials");
     }
 
     protected void Clear()

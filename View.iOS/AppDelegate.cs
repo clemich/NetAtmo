@@ -51,22 +51,24 @@ namespace View.iOS
             {
                 if (await gadget.DeviceList.ExecuteAsync())
                 {
-                    foreach (var station in gadget.Stations)
-                        textSection.Add(new  StringElement("Station", station.Value));
+                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                        textSection.Add(new  StringElement("Station", device.StationName));
 
-                    foreach (var device in gadget.DeviceList.Executed.Result.Data.Body.Devices)
-                        foreach (var datastore in device.last_data_store)
-                            textSection.Add(new StringElement(gadget.Modules[datastore.Key], datastore.Value.Temperature.ToString()));
+                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                        textSection.Add(new StringElement(device.ModuleName, device.last_data_store.Temperature.ToString()));
+
+                    foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
+                        textSection.Add(new StringElement(module.ModuleName, module.last_data_store.Temperature.ToString()));
                 }
                 else if (gadget.DeviceList.Executed.IsException)
                     textSection.Add(new StringElement("Exception gadget.DeviceList {0}", gadget.DeviceList.Executed.Exception.ToString()));
                 else
-                    textSection.Add(new StringElement("Error gadget.DeviceList {0}", gadget.DeviceList.Executed.Result.StatusDescription));
+                    textSection.Add(new StringElement("Error gadget.DeviceList"));
             }
             else if (gadget.ClientCredentials.Executed.IsException)
                 textSection.Add(new StringElement("Exception gadget.ClientCredentials {0}", gadget.ClientCredentials.Executed.Exception.ToString()));
             else
-                textSection.Add(new StringElement("Error gadget.ClientCredentials {0}", gadget.ClientCredentials.Executed.Result.StatusDescription));
+                textSection.Add(new StringElement("Error gadget.ClientCredentials"));
         }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)

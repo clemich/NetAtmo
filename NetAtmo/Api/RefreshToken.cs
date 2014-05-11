@@ -1,9 +1,10 @@
-﻿using RestSharp.Portable;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PortableRest;
+using System.Net.Http;
 
 namespace NetAtmo.Api
 {
@@ -19,7 +20,9 @@ namespace NetAtmo.Api
 
         async public override Task<bool> ExecuteAsync(RestRequest request = null)
         {
-            request = new RestRequest("oauth2/token", System.Net.Http.HttpMethod.Post);
+            request = new RestRequest("oauth2/token");
+            request.ContentType = ContentTypes.FormUrlEncoded;
+            request.Method= HttpMethod.Post;
             request.AddParameter("grant_type", "refresh_token");
             request.AddParameter("refresh_token", Gadget.Token.Refresh);
             request.AddParameter("client_id", Gadget.Config.Id);
@@ -29,8 +32,8 @@ namespace NetAtmo.Api
             bool result = await base.ExecuteAsync(request);
             if (result)
             {
-                Gadget.Token.Access = Executed.Result.Data.AccessToken;
-                Gadget.Token.Refresh = Executed.Result.Data.RefreshToken;
+                Gadget.Token.Access = Executed.Result.AccessToken;
+                Gadget.Token.Refresh = Executed.Result.RefreshToken;
             }
             return result;
         }

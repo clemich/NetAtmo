@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using RestSharp.Portable;
+using PortableRest;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace NetAtmo.Api
 {
-    public class Core<T>
+    public class Core<T> where T: class
     {
         public NetAtmo.Gadget Gadget { get; set; }
 
@@ -19,11 +21,21 @@ namespace NetAtmo.Api
 
         async public virtual Task<bool> ExecuteAsync(RestRequest request = null)
         {
+            RestClient rest = new RestClient();
+            rest.BaseUrl = Gadget.Client.BaseUrl;
+
             Executed.Result = null;
             Executed.Exception = null;
             try
             {
-                Executed.Result = await Gadget.Client.Execute<T>(request);
+                JsonSerializerSettings jss= new JsonSerializerSettings();
+                jss.Formatting= Formatting.Indented;
+
+                string response = await rest.ExecuteAsync<string>(request);
+                Debug.WriteLine(response);
+                var x= JsonConvert.DeserializeObject<T>(response);
+                var xs= JsonConvert.SerializeObject(x, jss);
+                Executed.Result= x;
                 return Executed.IsResultAndStatusCodeOk;
             }
             catch (Exception ex)
@@ -38,8 +50,8 @@ namespace NetAtmo.Api
         public class ExecutedHelper
         {
             #region Result
-            protected IRestResponse<T> m_Result;
-            public IRestResponse<T> Result
+            protected T m_Result;
+            public T Result
             {
                 get
                 {
@@ -62,7 +74,7 @@ namespace NetAtmo.Api
             {
                 get
                 {
-                    return IsResult && m_Result.StatusCode == System.Net.HttpStatusCode.OK;
+                    return IsResult;
                 }
             }
             #endregion

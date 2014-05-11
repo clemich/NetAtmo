@@ -12,22 +12,24 @@ namespace View.Command
             {
                 if (await gadget.DeviceList.ExecuteAsync())
                 {
-                    foreach (var station in gadget.Stations)
-                        Console.WriteLine("Station={0}", station.Value);
+                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                        Console.WriteLine("Station={0}", device.StationName);
 
-                    foreach (var device in gadget.DeviceList.Executed.Result.Data.Body.Devices)
-                        foreach (var datastore in device.last_data_store)
-                            Console.WriteLine("Name={0} Temp={1}", gadget.Modules[datastore.Key], datastore.Value.Temperature);
+                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                        Console.WriteLine("Name={0} Temp={1}", device.ModuleName, device.last_data_store.Temperature.ToString());
+
+                    foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
+                        Console.WriteLine("Name={0} Temp={1}", module.ModuleName, module.last_data_store.Temperature.ToString());
                 }
                 else if (gadget.DeviceList.Executed.IsException)
                     Console.WriteLine("Exception gadget.DeviceList {0}", gadget.DeviceList.Executed.Exception.ToString());
                 else
-                    Console.WriteLine("Error gadget.DeviceList {0}", gadget.DeviceList.Executed.Result.StatusDescription);
+                    Console.WriteLine("Error gadget.DeviceList");
             }
             else if (gadget.ClientCredentials.Executed.IsException)
                 Console.WriteLine("Exception gadget.ClientCredentials {0}", gadget.ClientCredentials.Executed.Exception.ToString());
             else
-                Console.WriteLine("Error gadget.ClientCredentials {0}", gadget.ClientCredentials.Executed.Result.StatusDescription);
+                Console.WriteLine("Error gadget.ClientCredentials");
         }
 
         public static void Main(string[] args)

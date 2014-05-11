@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RestSharp.Portable;
+using PortableRest;
+using System.Net.Http;
 
 
 namespace NetAtmo.Api
@@ -20,8 +21,10 @@ namespace NetAtmo.Api
 
         async public override Task<bool> ExecuteAsync(RestRequest request = null)
         {
-            request = new RestRequest("api/getuser", System.Net.Http.HttpMethod.Post);
-            request.AddParameter("access_token", Gadget.Token.Access, ParameterType.QueryString);
+            request = new RestRequest("api/getuser");
+            request.ContentType = ContentTypes.FormUrlEncoded;
+            request.Method= HttpMethod.Post;
+            request.AddQueryString("access_token", Gadget.Token.Access);
             return await base.ExecuteAsync(request);
         }
     }

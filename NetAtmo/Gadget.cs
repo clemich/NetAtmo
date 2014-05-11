@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RestSharp.Portable;
+using PortableRest;
 
 namespace NetAtmo
 {
@@ -38,7 +38,10 @@ namespace NetAtmo
             get
             {
                 if (m_Client == null)
-                    m_Client = new RestClient(RootUrl);
+                {
+                    m_Client = new RestClient();
+                    m_Client.BaseUrl = RootUrl;
+                }
                 return m_Client;
             }
         }
@@ -197,32 +200,6 @@ namespace NetAtmo
         public TokenHelper Token
         {
             get { return m_Token; }
-        }
-        #endregion
-
-        #region Modules
-        private Dictionary<string, string> m_Modules = new Dictionary<string, string>();
-
-        public Dictionary<string, string> Modules
-        {
-            get { return m_Modules; }
-            protected set
-            {
-                m_Modules = value;
-            }
-        }
-        #endregion
-
-        #region Devices
-        private Dictionary<string, string> m_Stations = new Dictionary<string, string>();
-
-        public Dictionary<string, string> Stations
-        {
-            get { return m_Stations; }
-            protected set
-            {
-                m_Stations = value;
-            }
         }
         #endregion
     }
