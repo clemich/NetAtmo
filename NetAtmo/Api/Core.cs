@@ -21,23 +21,19 @@ namespace NetAtmo.Api
 
         async public virtual Task<bool> ExecuteAsync(RestRequest request = null)
         {
-            RestClient rest = new RestClient();
-            rest.BaseUrl = Gadget.Client.BaseUrl;
-
             Executed.Result = null;
             Executed.Exception = null;
             try
             {
-                string response = await rest.ExecuteAsync<string>(request);
-                Debug.WriteLine(response);
-                var x= JsonConvert.DeserializeObject<T>(response);
+                string responseAsString = await Gadget.Client.ExecuteAsync<string>(request);
+//                Debug.WriteLine(responseAsString);
+                var responseAsObject= JsonConvert.DeserializeObject<T>(responseAsString);
 
-//                JsonSerializerSettings jss= new JsonSerializerSettings();
-//                jss.Formatting= Formatting.Indented;
-//                var xs= JsonConvert.SerializeObject(x, jss);
+//                var responseAsStringJsonFormated= JsonConvert.SerializeObject(responseAsObject, new JsonSerializerSettings(){Formatting= Formatting.Indented});
+//                Debug.WriteLine(responseAsStringJsonFormated);
 
-                Executed.Result= x;
-                return Executed.IsResultAndStatusCodeOk;
+                Executed.Result= responseAsObject;
+                return Executed.IsResult;
             }
             catch (Exception ex)
             {
@@ -71,13 +67,6 @@ namespace NetAtmo.Api
                 }
             }
 
-            public bool IsResultAndStatusCodeOk
-            {
-                get
-                {
-                    return IsResult;
-                }
-            }
             #endregion
 
             #region Exception
