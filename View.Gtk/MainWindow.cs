@@ -51,7 +51,7 @@ public partial class MainWindow: Gtk.Window
                     WriteLine("Station={0}", device.StationName);
 
                 foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
-                    WriteLine("Name={0} Temp={1}", device.ModuleName, device.LastDataStore.Temperature.ToString());
+                    WriteLine("Name={0} Temp={1}", device.ModuleName, device.LastDataStore.k.ToString());
 
                 foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
                     WriteLine("Name={0} Temp={1}", module.ModuleName, module.LastDataStore.Temperature.ToString());

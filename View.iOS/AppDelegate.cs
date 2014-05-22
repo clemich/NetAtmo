@@ -55,7 +55,7 @@ namespace View.iOS
                         textSection.Add(new  StringElement("Station", device.StationName));
 
                     foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
-                        textSection.Add(new StringElement(device.ModuleName, device.LastDataStore.Temperature.ToString()));
+                        textSection.Add(new StringElement(device.ModuleName, device.LastDataStore.k.ToString()));
 
                     foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
                         textSection.Add(new StringElement(module.ModuleName, module.LastDataStore.Temperature.ToString()));
