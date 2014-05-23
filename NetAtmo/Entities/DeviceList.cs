@@ -61,10 +61,11 @@ namespace NetAtmo.Entities
             [JsonProperty("module_name")]
             public string ModuleName { get; set; }
 
+            [JsonProperty("type")]
+            public string Type { get; set; }
 
-            public string type { get; set; }
-
-            public int firmware { get; set; }
+            [JsonProperty("firmware")]
+            public int FirmWare{ get; set; }
 
             public int last_message { get; set; }
 
@@ -138,13 +139,13 @@ namespace NetAtmo.Entities
 
         public class LastDataStore2
         {
-            public int X { get; set; }
+            public double X { get; set; }
 
-            public int Y { get; set; }
+            public double Y { get; set; }
 
             public double k { get; set; }
 
-            public int l { get; set; }
+            public double l { get; set; }
         }
 
         public class DashboardData2
@@ -169,7 +170,7 @@ namespace NetAtmo.Entities
 
             public double min_temp { get; set; }
 
-            public int max_temp { get; set; }
+            public double max_temp { get; set; }
         }
 
         public class Device
