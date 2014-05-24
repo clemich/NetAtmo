@@ -132,7 +132,7 @@ Global
 		{BFD29D66-3B81-4BF5-8D80-F43259EC2AA1} = {0F281BB2-35AD-4DD0-A0EE-02D9043DAD44}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = View.Command\View.Command.csproj
+		StartupItem = View.iOS\View.iOS.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None

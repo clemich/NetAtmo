@@ -20,12 +20,22 @@ namespace NetAtmo.Entities
         {
             public int K { get; set; }
 
-            [JsonProperty("a")]
-            public double Temperature { get; set; }
+            public double a { get; set; }
 
             public int b { get; set; }
 
             public int? h { get; set; }
+        }
+
+        public class LastDataStore2
+        {
+            public double X { get; set; }
+
+            public double Y { get; set; }
+
+            public double k { get; set; }
+
+            public double l { get; set; }
         }
 
         public class DashboardData
@@ -45,6 +55,31 @@ namespace NetAtmo.Entities
             public double max_temp { get; set; }
 
             public int? CO2 { get; set; }
+        }
+
+        public class DashboardData2
+        {
+            public double AbsolutePressure { get; set; }
+
+            public int time_utc { get; set; }
+
+            public int Noise { get; set; }
+
+            public double Temperature { get; set; }
+
+            public int Humidity { get; set; }
+
+            public double Pressure { get; set; }
+
+            public int CO2 { get; set; }
+
+            public int date_max_temp { get; set; }
+
+            public int date_min_temp { get; set; }
+
+            public double min_temp { get; set; }
+
+            public double max_temp { get; set; }
         }
 
         public class Module
@@ -78,7 +113,9 @@ namespace NetAtmo.Entities
             [JsonProperty("last_data_store")]
             public LastDataStore LastDataStore { get; set; }
 
-            public DashboardData dashboard_data { get; set; }
+            [JsonProperty("dashboard_data")]
+
+            public DashboardData DashboardData { get; set; }
 
             public List<string> data_type { get; set; }
 
@@ -137,41 +174,6 @@ namespace NetAtmo.Entities
             public bool meteo_alarm { get; set; }
         }
 
-        public class LastDataStore2
-        {
-            public double X { get; set; }
-
-            public double Y { get; set; }
-
-            public double k { get; set; }
-
-            public double l { get; set; }
-        }
-
-        public class DashboardData2
-        {
-            public double AbsolutePressure { get; set; }
-
-            public int time_utc { get; set; }
-
-            public int Noise { get; set; }
-
-            public double Temperature { get; set; }
-
-            public int Humidity { get; set; }
-
-            public double Pressure { get; set; }
-
-            public int CO2 { get; set; }
-
-            public int date_max_temp { get; set; }
-
-            public int date_min_temp { get; set; }
-
-            public double min_temp { get; set; }
-
-            public double max_temp { get; set; }
-        }
 
         public class Device
         {
@@ -212,7 +214,8 @@ namespace NetAtmo.Entities
             [JsonProperty("module_name")]
             public string ModuleName { get; set; }
 
-            public List<string> modules { get; set; }
+            [JsonProperty("modules")]
+            public List<string> Modules { get; set; }
 
             public string netcom_transport { get; set; }
 
@@ -239,7 +242,9 @@ namespace NetAtmo.Entities
             [JsonProperty("last_data_store")]
             public LastDataStore2 LastDataStore { get; set; }
 
-            public DashboardData2 dashboard_data { get; set; }
+            [JsonProperty("dashboard_data")]
+
+            public DashboardData2 DashboardData { get; set; }
 
             public List<string> data_type { get; set; }
         }
@@ -261,6 +266,8 @@ namespace NetAtmo.Entities
 
         public double time_exec { get; set; }
 
-        public int time_server { get; set; }
+        [JsonProperty("time_server")]
+
+        public int TimeServer { get; set; }
     }
 }
