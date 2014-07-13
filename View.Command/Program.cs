@@ -12,13 +12,13 @@ namespace View.Command
             {
                 if (await gadget.DeviceList.ExecuteAsync())
                 {
-                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                    foreach (var device in gadget.DeviceList.Executed.Result.Data.Body.Devices)
                         Console.WriteLine("Station={0}", device.StationName);
 
-                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                    foreach (var device in gadget.DeviceList.Executed.Result.Data.Body.Devices)
                         Console.WriteLine("Name={0} Temp={1}", device.ModuleName, device.DashboardData.Temperature.ToString());
 
-                    foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
+                    foreach (var module in gadget.DeviceList.Executed.Result.Data.Body.Modules)
                         Console.WriteLine("Name={0} Temp={1}", module.ModuleName, module.DashboardData.Temperature.ToString());
                 }
                 else if (gadget.DeviceList.Executed.IsException)
