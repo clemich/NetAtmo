@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using PortableRest;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using RestSharp.Portable;
 
 namespace NetAtmo.Api
 {
@@ -25,15 +25,11 @@ namespace NetAtmo.Api
             Executed.Exception = null;
             try
             {
-                string responseAsString = await Gadget.Client.ExecuteAsync<string>(request);
-//                Debug.WriteLine(responseAsString);
-                var responseAsObject= JsonConvert.DeserializeObject<T>(responseAsString);
+                var s = await Gadget.Client.Execute(request);
+                Debug.WriteLine(s.ToString());
 
-//                var responseAsStringJsonFormated= JsonConvert.SerializeObject(responseAsObject, new JsonSerializerSettings(){Formatting= Formatting.Indented});
-//                Debug.WriteLine(responseAsStringJsonFormated);
-
-                Executed.Result= responseAsObject;
-                return Executed.IsResult;
+                Executed.Result = await Gadget.Client.Execute<T>(request);
+                return Executed.IsResultAndStatusCodeOk;
             }
             catch (Exception ex)
             {
@@ -47,8 +43,10 @@ namespace NetAtmo.Api
         public class ExecutedHelper
         {
             #region Result
-            protected T m_Result;
-            public T Result
+
+            protected IRestResponse<T> m_Result;
+
+            public IRestResponse<T> Result
             {
                 get
                 {
@@ -59,6 +57,7 @@ namespace NetAtmo.Api
                     m_Result = value;
                 }
             }
+
             public bool IsResult
             {
                 get
@@ -67,10 +66,20 @@ namespace NetAtmo.Api
                 }
             }
 
+            public bool IsResultAndStatusCodeOk
+            {
+                get
+                {
+                    return IsResult && m_Result.StatusCode == System.Net.HttpStatusCode.OK;
+                }
+            }
+
             #endregion
 
             #region Exception
+
             protected Exception m_Exception;
+
             public Exception Exception
             {
                 get
@@ -90,6 +99,7 @@ namespace NetAtmo.Api
                     return m_Exception != null;
                 }
             }
+
             #endregion
 
 

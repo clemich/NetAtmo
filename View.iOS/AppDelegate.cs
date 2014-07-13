@@ -4,6 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
+using Xamarin.Forms;
 
 namespace View.iOS
 {
@@ -49,15 +50,17 @@ namespace View.iOS
             NetAtmo.Gadget gadget = new NetAtmo.Gadget(Config.Id, Config.Secret, Config.UserName, Config.Password);
             if (await gadget.ClientCredentials.ExecuteAsync())
             {
+                textSection.Add(new StringElement("RefreshToken {0}", gadget.ClientCredentials.Executed.Result.Data.RefreshToken.ToString()));
+                textSection.Add(new StringElement("AccessToken {0}", gadget.ClientCredentials.Executed.Result.Data.AccessToken.ToString()));
                 if (await gadget.DeviceList.ExecuteAsync())
                 {
-                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                    foreach (var device in gadget.DeviceList.Executed.Result.Data.Body.Devices)
                         textSection.Add(new  StringElement("Station", device.StationName));
 
-                    foreach (var device in gadget.DeviceList.Executed.Result.Body.Devices)
+                    foreach (var device in gadget.DeviceList.Executed.Result.Data.Body.Devices)
                         textSection.Add(new StringElement(device.ModuleName, device.DashboardData.Temperature.ToString()));
 
-                    foreach (var module in gadget.DeviceList.Executed.Result.Body.Modules)
+                    foreach (var module in gadget.DeviceList.Executed.Result.Data.Body.Modules)
                         textSection.Add(new StringElement(module.ModuleName, module.DashboardData.Temperature.ToString()));
                 }
                 else if (gadget.DeviceList.Executed.IsException)
@@ -73,6 +76,8 @@ namespace View.iOS
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
+            Forms.Init ();
+
             Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
             rootElement = new RootElement("View.iOS - NetAtmo");

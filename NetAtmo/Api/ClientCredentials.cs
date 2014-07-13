@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using PortableRest;
+using RestSharp.Portable;
 
 namespace NetAtmo.Api
 {
@@ -20,8 +20,7 @@ namespace NetAtmo.Api
 
         async public override Task<bool> ExecuteAsync(RestRequest request = null)
         {
-            request = new RestRequest("oauth2/token", HttpMethod.Post);
-            request.ContentType = ContentTypes.FormUrlEncoded;
+            request = new RestRequest("oauth2/token", System.Net.Http.HttpMethod.Post);
             request.AddParameter("grant_type", "password");
             request.AddParameter("client_id", Gadget.Config.Id);
             request.AddParameter("client_secret", Gadget.Config.Secret);
@@ -31,10 +30,11 @@ namespace NetAtmo.Api
 
             Gadget.Token.Reset();
             bool result = await base.ExecuteAsync(request);
+
             if (result)
             {
-                Gadget.Token.Access = Executed.Result.AccessToken;
-                Gadget.Token.Refresh = Executed.Result.RefreshToken;
+                Gadget.Token.Access = Executed.Result.Data.AccessToken;
+                Gadget.Token.Refresh = Executed.Result.Data.RefreshToken;
             }
             return result;
         }

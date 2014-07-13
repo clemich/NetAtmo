@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PortableRest;
+using RestSharp.Portable;
 
 namespace NetAtmo
 {
@@ -39,8 +39,7 @@ namespace NetAtmo
             {
                 if (m_Client == null)
                 {
-                    m_Client = new RestClient();
-                    m_Client.BaseUrl = RootUrl;
+                    m_Client = new RestClient(RootUrl);
                 }
                 return m_Client;
             }
